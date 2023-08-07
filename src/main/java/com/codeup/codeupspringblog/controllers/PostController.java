@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/posts")
+@RequestMapping
 public class PostController {
 
-    @GetMapping
+    @GetMapping("/post")
     @ResponseBody
     public String postsIndexPage() {
         return "This is the posts index page";
@@ -23,7 +23,7 @@ public class PostController {
         return "Viewing post with ID: " + id;
     }
 
-    @GetMapping("/create")
+    @GetMapping("/create/create")
     @ResponseBody
     public String viewCreatePostForm() {
         return "Viewing the form for creating a post";
