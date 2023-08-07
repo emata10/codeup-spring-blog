@@ -1,37 +1,32 @@
 package com.codeup.codeupspringblog.controllers;
 
+import com.codeup.codeupspringblog.model.Post;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.ArrayList;
+
 
 @Controller
-@RequestMapping
 public class PostController {
 
-    @GetMapping("/post")
-    @ResponseBody
-    public String postsIndexPage() {
-        return "This is the posts index page";
+    @GetMapping("/posts")
+    public String viewAllPosts(Model model) {
+        ArrayList<Post> posts = new ArrayList<>();
+        posts.add(new Post("Hello Everyone"));
+        posts.add(new Post("My dogs name is loki"));
+
+        model.addAttribute("posts", posts);
+
+        return "posts/index"; // This will map to templates/posts/index.html
     }
 
-    @GetMapping("/{id}")
-    @ResponseBody
-    public String viewIndividualPost(@PathVariable int id) {
-        return "Viewing post with ID: " + id;
-    }
+    @GetMapping("/posts/{postId}")
+    public String viewPost(Model model, @PathVariable int postId) {
+        Post post = new Post("Sample Title");
+        model.addAttribute("post", post);
 
-    @GetMapping("/create/create")
-    @ResponseBody
-    public String viewCreatePostForm() {
-        return "Viewing the form for creating a post";
-    }
-
-    @PostMapping("/create")
-    @ResponseBody
-    public String createNewPost() {
-        return "Creating a new post";
+        return "posts/show"; // This will map to templates/posts/show.html
     }
 }
