@@ -1,50 +1,51 @@
 package com.codeup.codeupspringblog.controllers;
 
 import com.codeup.codeupspringblog.model.Post;
+import com.codeup.codeupspringblog.repositories.PostRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PostController {
 
+    private final PostRepository postRepository; // Inject the PostRepository
+
+//    @Autowired
+    public PostController(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
+
     @GetMapping("/posts")
     public String viewAllPosts(Model model) {
-        ArrayList<Post> posts = new ArrayList<>();
-        posts.add(new Post("Hello Everyone"));
-        posts.add(new Post("My dogs name is loki"));
-
+        List<Post> posts = postRepository.findAll();
         model.addAttribute("posts", posts);
-
-        return "posts/index"; // This will map to templates/posts/index.html
+        return "posts/index";
     }
 
     @GetMapping("/posts/{postId}")
-    public String viewPost(Model model, @PathVariable int postId) {
-        Post post = new Post("Sample Title");
+    public String viewPost(Model model, @PathVariable Long postId) {
+        Optional<Post> post = postRepository.findById(postId);
         model.addAttribute("post", post);
-
-        return "posts/show"; // This will map to templates/posts/show.html
+        return "posts/show";
     }
 
-    @GetMapping
-    public String showCreateForm() {
-        return "posts/create"; // This will map to templates/posts/create.html
+    @GetMapping("/posts/create")
+    public String showCreateForm(Model model) {
+//        model.addAttribute("post", new Post()); // Create an empty Post object to bind the form data
+        return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    public String createPost(@RequestParam String title, @RequestParam String content) {
+    public String createPost(@ModelAttribute Post post) {
         // Logic to create a new post using the provided title and content
-        // You might want to save the new post to a database or perform other actions
-        return "redirect:/posts"; // Redirect to the list of posts after creating a new post
+        postRepository.save(post); // Save the new post to the database
+        return "redirect:/posts";
     }
 }
-
-
-
