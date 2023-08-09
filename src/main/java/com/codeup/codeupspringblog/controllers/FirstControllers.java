@@ -16,17 +16,17 @@ public class FirstControllers {
 
     // ================== EXAMPLE ENDPOINTS
 
-    @GetMapping("/")
-    @ResponseBody
-    public String returnHomePage() {
-        return "Welcome!";
-    }
+//    @GetMapping("/")
+//    @ResponseBody
+//    public String returnHomePage() {
+//        return "Welcome!";
+//    }
 
-    @GetMapping("/hello")
-    @ResponseBody
-    public String returnHelloWorld() {
-        return "Hello Dragon!";
-    }
+//    @GetMapping("/hello")
+//    @ResponseBody
+//    public String returnHelloWorld() {
+//        return "Hello Dragon!";
+//    }
 
     @GetMapping("/another")
     @ResponseBody

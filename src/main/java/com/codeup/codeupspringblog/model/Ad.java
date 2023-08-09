@@ -2,6 +2,7 @@ package com.codeup.codeupspringblog.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 
 
 @Entity
@@ -20,6 +21,14 @@ public class Ad {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name="ads_categories",
+            joinColumns={@JoinColumn(name="ad_id")},
+            inverseJoinColumns={@JoinColumn(name="category_id")}
+    )
+    private List<Category> categories;
 
     public long getId() {
         return id;
