@@ -10,22 +10,16 @@ public class Ad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(nullable = false, length = 100)
     private String title;
+
     @Column(nullable = false)
     private String description;
-    @ManyToOne
-    @JoinColumn(name = "user")
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id")
     private User user;
-
-    @Column(nullable = false)
-    private String body;
-
-    @Column(nullable = false)
-    private String price;
-
-    public Ad(String title, String description) {
-    }
 
     public long getId() {
         return id;
@@ -59,19 +53,17 @@ public class Ad {
         this.user = user;
     }
 
-    public String getBody() {
-        return body;
+    public Ad() {
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public Ad(String title, String description) {
+        this.title = title;
+        this.description = description;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
+    public Ad(String title, String description, User user) {
+        this.title = title;
+        this.description = description;
+        this.user = user;
     }
 }

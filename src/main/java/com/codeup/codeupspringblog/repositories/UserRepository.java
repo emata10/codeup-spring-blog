@@ -4,7 +4,6 @@ import com.codeup.codeupspringblog.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    private <id> User findUserById() {
-        return null;
-    }
+    User findUserById(long id);
+    User findUserByUsername(String username);
 }
