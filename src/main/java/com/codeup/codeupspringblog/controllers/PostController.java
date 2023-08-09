@@ -1,17 +1,24 @@
 package com.codeup.codeupspringblog.controllers;
 
 import com.codeup.codeupspringblog.model.Post;
+import com.codeup.codeupspringblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
 @Controller
+@RestController
 public class PostController {
+
+
+    private final UserRepository userRepository;
+
+    public PostController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @GetMapping("/posts")
     public String postsHome(Model model) {
         ArrayList<Post> posts = new ArrayList<>();
@@ -33,8 +40,12 @@ public class PostController {
     public String postsForm() {
         return "And this is where the form for creating a post would go... IF WE HAD ONE!";
     }
+
     @PostMapping("/posts/create")
     public void createPost() {
         //Something happens here to store a post for later ;)
     }
+
+
+
 }
