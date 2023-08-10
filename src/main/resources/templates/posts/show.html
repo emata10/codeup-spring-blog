@@ -5,10 +5,12 @@
 </head>
 <body class="main-bg main-container">
 <nav th:replace="partials :: navbar"></nav>
+<header th:replace="partials :: header(${post.title})"></header>
 <main class="container">
 	<div>
-		<h1 th:text="${post.title}"></h1>
+		<h3>Posted by <span th:text="${post.user.email}"></span></h3>
 		<p th:text="${post.body}"></p>
+		<a th:href="@{/posts/{id}/edit(id=${post.id})}">Edit Post</a>
 	</div>
 </main>
 <footer th:replace="partials :: footer"></footer>

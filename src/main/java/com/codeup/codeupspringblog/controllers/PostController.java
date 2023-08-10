@@ -1,21 +1,19 @@
 package com.codeup.codeupspringblog.controllers;
 
 import com.codeup.codeupspringblog.model.Post;
-import com.codeup.codeupspringblog.model.PostForm;
 import com.codeup.codeupspringblog.model.User;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @Controller
-
 public class PostController {
 
 
@@ -27,6 +25,7 @@ public class PostController {
         this.userDao = userDao;
     }
 
+    //  *** OLD mapping ***
 //    @GetMapping("/posts")
 //    public String postsHome(Model model) {
 //        ArrayList<Post> posts = new ArrayList<>();
@@ -34,7 +33,7 @@ public class PostController {
 //        posts.add(new Post(2,"Uh-oh...", "The brownies betrayed me..."));
 //        model.addAttribute("posts", posts);
 //        return "posts/index";
-//}
+//    }
 
     @GetMapping("/posts")
     public String postsHome(Model model) {
@@ -43,13 +42,15 @@ public class PostController {
         return "posts/index";
     }
 
-    //
+
+//    *** Old Mapping ***
 //    @GetMapping("/posts/{id}")
-//    public String postsHome(@PathVariable long id, Model) {
-//        Post = new Post(id, "Test post", "Why do all these posts look the same?");
+//    public String postsHome(@PathVariable long id, Model model) {
+//        Post post = new Post(id, "Test post", "Why do all these posts look the same?");
 //        model.addAttribute("post", post);
 //        return "posts/show";
 //    }
+
     @GetMapping("/posts/{id}")
     public String postsHome(@PathVariable long id, Model model) {
         Post post = postDao.findPostById(id);
@@ -57,25 +58,34 @@ public class PostController {
         return "posts/show";
     }
 
+    @GetMapping("/posts/{id}/edit")
+    public String postsEdit(@PathVariable long id, Model model) {
+        Post post = postDao.findPostById(id);
+        model.addAttribute("post", post);
+        return "posts/edit";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String postsUpdate(@ModelAttribute Post post, @PathVariable long id) {
+        Post postToUpdate = postDao.findPostById(id);
+        postToUpdate.setTitle(post.getTitle());
+        postToUpdate.setBody(post.getBody());
+        postDao.save(postToUpdate);
+        return "redirect:/posts";
+    }
+
     @GetMapping("/posts/create")
     public String postsForm(Model model) {
         model.addAttribute("heading", "Create new post.");
-        model.addAttribute("postForm", new PostForm());
+        model.addAttribute("post", new Post());
         return "posts/create";
     }
 
     @PostMapping("/posts/save")
-    public String createPost(@RequestParam String title, @RequestParam String body) {
-        Post post = new Post(title, body);
-        User user = userDao.findById(1L).orElse(null);
-        if (user != null) {
-            post.setUser(user);
-            postDao.save(post);
-        }
+    public String createPost(@ModelAttribute Post post) {
+        User user = userDao.findById(1L).get();
+        post.setUser(user);
+        postDao.save(post);
         return "redirect:/posts";
     }
-
 }
-
-
-

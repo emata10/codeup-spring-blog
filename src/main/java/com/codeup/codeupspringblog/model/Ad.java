@@ -66,4 +66,14 @@ public class Ad {
         this.description = description;
         this.adUser = adUser;
     }
+
+    @Override
+    public String toString() {
+        return "Ad{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", adUser=" + adUser +
+                '}';
+    }
 }

@@ -5,6 +5,7 @@
 </head>
 <body class="main-bg main-container">
 <nav th:replace="partials :: navbar"></nav>
+<header th:replace="partials :: header('Posts')"></header>
 <main class="container">
 	<div th:each="post : ${posts}">
 		<a th:href="@{/posts/{id} (id = ${post.id})}"><h1 th:text="${post.title}"></h1></a>

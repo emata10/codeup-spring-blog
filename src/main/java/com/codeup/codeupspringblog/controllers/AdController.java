@@ -7,10 +7,7 @@ import com.codeup.codeupspringblog.repositories.AdRepository;
 import com.codeup.codeupspringblog.repositories.AdUserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
@@ -18,7 +15,6 @@ import java.util.Objects;
 public class AdController {
 
     private final AdRepository adDao;
-
     private final AdUserRepository adUserDao;
 
     public AdController(AdRepository adDao, AdUserRepository adUserDao) {
@@ -33,14 +29,16 @@ public class AdController {
     }
 
     @GetMapping("/ads/create")
-    public String createAdForm(){
+    public String createAdForm(Model model){
+        model.addAttribute("ad", new Ad());
         return "ads/create";
     }
 
     @PostMapping("/ads/create")
-    public String createAdInDB(@RequestParam(name="title") String title, @RequestParam(name="description") String description){
-        AdUser adUser = adUserDao.findUserById(1L);
-        Ad ad = new Ad(title, description, adUser);
+    public String createAdInDB(@ModelAttribute Ad ad, @RequestParam String message){
+        System.out.println(ad.toString());
+        AdUser user = adUserDao.getReferenceById(1L);
+        ad.setUser(user);
         adDao.save(ad);
         return "redirect:/ads";
     }

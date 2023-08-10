@@ -66,4 +66,18 @@ public class Post {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public void setContent(User content) {
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", user=" + user +
+                '}';
+    }
+
 }
