@@ -2,7 +2,6 @@ package com.codeup.codeupspringblog.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 
 
 @Entity
@@ -20,15 +19,7 @@ public class Ad {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name="ads_categories",
-            joinColumns={@JoinColumn(name="ad_id")},
-            inverseJoinColumns={@JoinColumn(name="category_id")}
-    )
-    private List<Category> categories;
+    private AdUser adUser;
 
     public long getId() {
         return id;
@@ -54,12 +45,12 @@ public class Ad {
         this.description = description;
     }
 
-    public User getUser() {
-        return user;
+    public AdUser getUser() {
+        return adUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(AdUser adUser) {
+        this.adUser = adUser;
     }
 
     public Ad() {
@@ -70,9 +61,9 @@ public class Ad {
         this.description = description;
     }
 
-    public Ad(String title, String description, User user) {
+    public Ad(String title, String description, AdUser adUser) {
         this.title = title;
         this.description = description;
-        this.user = user;
+        this.adUser = adUser;
     }
 }

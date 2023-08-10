@@ -1,51 +1,81 @@
 package com.codeup.codeupspringblog.controllers;
 
 import com.codeup.codeupspringblog.model.Post;
+import com.codeup.codeupspringblog.model.PostForm;
+import com.codeup.codeupspringblog.model.User;
+import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Controller
-@RestController
+
 public class PostController {
 
 
-    private final UserRepository userRepository;
+    private final PostRepository postDao;
+    private final UserRepository userDao;
 
-    public PostController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public PostController(PostRepository postDao, UserRepository userDao) {
+        this.postDao = postDao;
+        this.userDao = userDao;
     }
+
+//    @GetMapping("/posts")
+//    public String postsHome(Model model) {
+//        ArrayList<Post> posts = new ArrayList<>();
+//        posts.add(new Post(1,"Wow!", "Free Brownies in the quad!"));
+//        posts.add(new Post(2,"Uh-oh...", "The brownies betrayed me..."));
+//        model.addAttribute("posts", posts);
+//        return "posts/index";
+//}
 
     @GetMapping("/posts")
     public String postsHome(Model model) {
-        ArrayList<Post> posts = new ArrayList<>();
-        posts.add(new Post(1,"Wow!", "Free Brownies in the quad!"));
-        posts.add(new Post(2,"Uh-oh...", "The brownies betrayed me..."));
+        List<Post> posts = postDao.findAll();
         model.addAttribute("posts", posts);
         return "posts/index";
     }
 
+    //
+//    @GetMapping("/posts/{id}")
+//    public String postsHome(@PathVariable long id, Model) {
+//        Post = new Post(id, "Test post", "Why do all these posts look the same?");
+//        model.addAttribute("post", post);
+//        return "posts/show";
+//    }
     @GetMapping("/posts/{id}")
     public String postsHome(@PathVariable long id, Model model) {
-        Post post = new Post(id, "Test post", "Why do all these posts look the same?");
+        Post post = postDao.findPostById(id);
         model.addAttribute("post", post);
         return "posts/show";
     }
 
     @GetMapping("/posts/create")
-    @ResponseBody
-    public String postsForm() {
-        return "And this is where the form for creating a post would go... IF WE HAD ONE!";
+    public String postsForm(Model model) {
+        model.addAttribute("heading", "Create new post.");
+        model.addAttribute("postForm", new PostForm());
+        return "posts/create";
     }
 
-    @PostMapping("/posts/create")
-    public void createPost() {
-        //Something happens here to store a post for later ;)
+    @PostMapping("/posts/save")
+    public String createPost(@RequestParam String title, @RequestParam String body) {
+        Post post = new Post(title, body);
+        User user = userDao.findById(1L).orElse(null);
+        if (user != null) {
+            post.setUser(user);
+            postDao.save(post);
+        }
+        return "redirect:/posts";
     }
-
-
 
 }
+
+
+
