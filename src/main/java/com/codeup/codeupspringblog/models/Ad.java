@@ -1,4 +1,4 @@
-package com.codeup.codeupspringblog.model;
+package com.codeup.codeupspringblog.models;
 
 import jakarta.persistence.*;
 
@@ -17,7 +17,7 @@ public class Ad {
     @Column(nullable = false)
     private String description;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private AdUser adUser;
 

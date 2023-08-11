@@ -1,6 +1,6 @@
 package com.codeup.codeupspringblog.services;
 
-import com.codeup.codeupspringblog.model.UserWithRoles;
+import com.codeup.codeupspringblog.models.UserWithRoles;
 import com.codeup.codeupspringblog.repositories.AdUserRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
 import lombok.AllArgsConstructor;

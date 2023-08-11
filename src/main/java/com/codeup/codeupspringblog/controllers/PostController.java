@@ -1,13 +1,11 @@
 package com.codeup.codeupspringblog.controllers;
 
-import com.codeup.codeupspringblog.model.Ad;
-import com.codeup.codeupspringblog.model.Post;
-import com.codeup.codeupspringblog.model.User;
+import com.codeup.codeupspringblog.models.Post;
+import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
 import com.codeup.codeupspringblog.services.EmailService;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@Getter
 @Controller
 @AllArgsConstructor
 public class PostController {
@@ -26,6 +23,16 @@ public class PostController {
     private final PostRepository postDao;
     private final UserRepository userDao;
 
+
+    //  *** OLD mapping ***
+//    @GetMapping("/posts")
+//    public String postsHome(Model model) {
+//        ArrayList<Post> posts = new ArrayList<>();
+//        posts.add(new Post(1,"Wow!", "Free Brownies in the quad!"));
+//        posts.add(new Post(2,"Uh-oh...", "The brownies betrayed me..."));
+//        model.addAttribute("posts", posts);
+//        return "posts/index";
+//    }
 
     @GetMapping("/posts")
     public String postsHome(Model model) {
@@ -71,10 +78,9 @@ public class PostController {
         postDao.save(post);
 
         // send email to the creator of the ad
-
-        Ad ad = new Ad();
-        emailService.sendPostEmail(ad, post.getTitle(), post.getDescription());
-
+        emailService.sendPostEmail(post,
+                "A Post has been created",
+                "Here is the post body:\n" + post.getBody());
 
         return "redirect:/posts";
     }

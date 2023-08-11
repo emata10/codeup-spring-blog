@@ -1,18 +1,18 @@
-package com.codeup.codeupspringblog.model;
+package com.codeup.codeupspringblog.models;
 
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "ad_users")
+public class AdUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
@@ -21,8 +21,16 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
-    private List<Post> posts;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "adUser")
+    private List<Ad> ads;
+
+
+    public AdUser(AdUser copy) {
+        id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        email = copy.email;
+        username = copy.username;
+        password = copy.password;
+    }
 
     public long getId() {
         return id;
@@ -56,15 +64,14 @@ public class User {
         this.password = password;
     }
 
-    public List<Post> getPosts() {
-        return posts;
+    public List<Ad> getAds() {
+        return ads;
     }
 
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
+    public void setAds(List<Ad> ads) {
+        this.ads = ads;
     }
 
-    public boolean isEmpty() {
-        return false;
+    public AdUser() {
     }
 }

@@ -1,6 +1,7 @@
 package com.codeup.codeupspringblog.services;
 
-import com.codeup.codeupspringblog.model.Ad;
+import com.codeup.codeupspringblog.models.Ad;
+import com.codeup.codeupspringblog.models.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -31,7 +32,7 @@ public class EmailService {
         }
     }
 
-    public void sendPostEmail(Ad post, String subject, String body) {
+    public void sendPostEmail(Post post, String subject, String body) {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setFrom(from);
         msg.setTo(post.getUser().getEmail());

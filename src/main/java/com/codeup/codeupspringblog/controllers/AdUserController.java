@@ -1,6 +1,6 @@
 package com.codeup.codeupspringblog.controllers;
 
-import com.codeup.codeupspringblog.model.AdUser;
+import com.codeup.codeupspringblog.models.AdUser;
 import com.codeup.codeupspringblog.repositories.AdUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

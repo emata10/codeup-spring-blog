@@ -1,4 +1,4 @@
-package com.codeup.codeupspringblog.model;
+package com.codeup.codeupspringblog.models;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -6,12 +6,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class UserWithRoles extends User implements UserDetails {
 
+public class UserWithRoles extends AdUser implements UserDetails {
 
+    public UserWithRoles(AdUser user) {
+        super(user);  // Call the copy constructor defined in User
+    }
 
-    public UserWithRoles(User user) {
-        super(User);  // Call the copy constructor defined in User
+    @Override
+    public String toString() {
+        return "UserWithRoles{} " + this.getId() + " " + this.getUsername();
     }
 
     @Override

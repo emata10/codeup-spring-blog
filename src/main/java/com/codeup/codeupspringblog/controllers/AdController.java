@@ -1,8 +1,8 @@
 package com.codeup.codeupspringblog.controllers;
 
 
-import com.codeup.codeupspringblog.model.Ad;
-import com.codeup.codeupspringblog.model.AdUser;
+import com.codeup.codeupspringblog.models.Ad;
+import com.codeup.codeupspringblog.models.AdUser;
 import com.codeup.codeupspringblog.repositories.AdRepository;
 import com.codeup.codeupspringblog.repositories.AdUserRepository;
 import com.codeup.codeupspringblog.services.EmailService;
