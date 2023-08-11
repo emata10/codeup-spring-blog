@@ -80,4 +80,7 @@ public class Post {
                 '}';
     }
 
+    public String getDescription() {
+        return null;
+    }
 }

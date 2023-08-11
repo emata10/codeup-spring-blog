@@ -5,19 +5,27 @@ import com.codeup.codeupspringblog.model.Ad;
 import com.codeup.codeupspringblog.model.AdUser;
 import com.codeup.codeupspringblog.repositories.AdRepository;
 import com.codeup.codeupspringblog.repositories.AdUserRepository;
+import com.codeup.codeupspringblog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Objects;
 
 @Controller
 public class AdController {
 
+    private final EmailService emailService;
+
     private final AdRepository adDao;
     private final AdUserRepository adUserDao;
 
-    public AdController(AdRepository adDao, AdUserRepository adUserDao) {
+    public AdController(EmailService emailService, AdRepository adDao, AdUserRepository adUserDao) {
+        this.emailService = emailService;
         this.adDao = adDao;
         this.adUserDao = adUserDao;
     }
@@ -35,11 +43,19 @@ public class AdController {
     }
 
     @PostMapping("/ads/create")
-    public String createAdInDB(@ModelAttribute Ad ad, @RequestParam String message){
+    public String createAdInDB(@ModelAttribute Ad ad){
         System.out.println(ad.toString());
-        AdUser user = adUserDao.getReferenceById(1L);
+//        AdUser user = adUserDao.getReferenceById(1L);
+        AdUser user = (AdUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        System.out.println(user);
+
         ad.setUser(user);
         adDao.save(ad);
+
+        // send email to the creator of the ad
+        emailService.sendAdEmail(ad, "yo here's your ad", "ok this is a body");
+
         return "redirect:/ads";
     }
 

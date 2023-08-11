@@ -7,3 +7,4 @@ public interface AdUserRepository extends JpaRepository<AdUser, Long> {
     AdUser findUserById(long id);
     AdUser findByUsername(String username);
 }
+

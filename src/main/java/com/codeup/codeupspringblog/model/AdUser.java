@@ -24,6 +24,14 @@ public class AdUser {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "adUser")
     private List<Ad> ads;
 
+    public AdUser(User copy) {
+        id = copy.getId(); // This line is SUPER important! Many things won't work if it's absent
+        email = copy.getEmail();
+        username = copy.getUsername();
+        password = copy.getPassword();
+    }
+
+
     public long getId() {
         return id;
     }
