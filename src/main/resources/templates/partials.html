@@ -38,6 +38,17 @@
 				<li>
 					<a class="nav-link" href="/posts/create">Create Post</a>
 				</li>
+				
+				<li>
+					<a class="nav-link" href="/ads">Ads</a>
+				</li>
+				<li>
+					<a class="nav-link" href="/ads/create">Create Ad</a>
+				</li>
+				
+				<li>
+					<a class="nav-link" href="/login">Login</a>
+				</li>
 				<li>
 					<form th:action="@{/logout}" th:method="post">
 						<button class="btn-link btn" style="margin-top: 8px">Logout</button>
@@ -51,12 +62,10 @@
 <!-- Post Form -->
 <form th:fragment="postsForm(action, btnText)" th:action="${action}" th:method="post" th:object="${post}">
 	<div class="mb-3">
-		<label class="form-label">Post Title:</label>
-		<label>
-			<input type="text" class="form-control">
-		</label>
-		<label class="form-label">Post Body:</label>
-		<textarea class="form-control" cols="30" rows="10"></textarea>
+		<label for="title" class="form-label">Post Title:</label>
+		<input type="text" th:field="*{title}" class="form-control">
+		<label for="body" class="form-label">Post Body:</label>
+		<textarea th:field="*{body}" class="form-control" cols="30" rows="10"></textarea>
 	</div>
 	<button class="btn footer-bg w-100 btn-dark" type="submit" th:text="${btnText}"></button>
 </form>
