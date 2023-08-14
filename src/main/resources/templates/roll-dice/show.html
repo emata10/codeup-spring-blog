@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="~{partials :: head ('Edit Post')}">
+<head th:replace="~{partials :: head ('Roll-a-Die')}">
 </head>
 <body class="main-container main-bg">
 <nav th:replace="~{partials :: navbar}"></nav>
-<header th:replace="~{partials :: header('Edit Post')}"></header>
 <main class="container">
-	<form th:replace="~{partials :: postsForm(@{/posts/{id}/edit(id=${post.id})}, 'Update Post')}"></form>
+	<h1>User guessed <span th:text="${number}"></span>. The die landed on <span th:text="${result}"></span>.</h1>
+	<h1 th:if="${number != result}">You lose...</h1>
+	<h1 th:if="${number == result}">You win!!!</h1>
+	<a class="btn footer-bg" th:href="@{/roll-dice}">Play again?</a>
 </main>
 <footer th:replace="~{partials :: footer}"></footer>
 <div th:replace="~{partials :: boot-scripts}"></div>

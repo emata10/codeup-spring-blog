@@ -1,18 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials :: head ('Viewing an Ad')">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{partials :: head ('Viewing an Ad')}">
 	<title>Prolonged Fart Noises</title>
 </head>
 <body class="main-bg main-container">
-<nav th:replace="partials :: navbar"></nav>
+<nav th:replace="~{partials :: navbar}"></nav>
+
+<div sec:authorize="isAuthenticated()">
+	<p>XXX: <span sec:authentication="principal"></span>
+	<p>User ID: <span sec:authentication="principal.id"></span>
+	<p>Welcome, <span sec:authentication="principal.username"></span></p>
+</div>
+
 <main class="container">
+	<h1>All ads</h1>
 	<div th:each="ad : ${ads}">
 		<a th:href="@{/ads/{id} (id = ${ad.id})}"><h1 th:text="${ad.title}"></h1></a>
 		<p th:text="${ad.description}"></p>
 	</div>
 
 </main>
-<footer th:replace="partials :: footer"></footer>
-<div th:replace="partials :: boot-scripts"></div>
+
+<footer th:replace="~{partials :: footer}"></footer>
+<div th:replace="~{partials :: boot-scripts}"></div>
 </body>
 </html>

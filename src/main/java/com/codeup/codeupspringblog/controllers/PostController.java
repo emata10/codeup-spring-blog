@@ -47,7 +47,7 @@ public class PostController {
 //    public String postsHome(@PathVariable long id, Model model) {
 //        Post post = new Post(id, "Test post", "Why do all these posts look the same?");
 //        model.addAttribute("post", post);
-//        return "posts/show";
+//        return "posts/show.html";
 //    }
 
     @GetMapping("/posts/{id}")
