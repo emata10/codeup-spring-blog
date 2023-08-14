@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials :: head ('Roll-a-Die')">
+<head th:replace="~{partials :: head ('Roll-a-Die')}">
 </head>
 <body class="main-container main-bg">
-<nav th:replace="partials :: navbar"></nav>
+<nav th:replace="~{partials :: navbar}"></nav>
 <main class="container">
 	<h1>Pick a number!</h1>
 	<h2>
@@ -15,7 +15,7 @@
 		<a href="/roll-dice/6"><i class="fa-solid fa-dice-six"></i></a>
 	</h2>
 </main>
-<footer th:replace="partials :: footer"></footer>
-<div th:replace="partials :: boot-scripts"></div>
+<footer th:replace="~{partials :: footer}"></footer>
+<div th:replace="~{partials :: boot-scripts}"></div>
 </body>
 </html>

@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials :: head ('Welcome!')"></head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{partials :: head ('Welcome to Bloglandia!')}">
+</head>
+<body class="main-container main-bg">
 <nav th:replace="partials :: navbar"></nav>
-<body>
-
-<header class="container">
-	<h1 class="text-center mt-5 display-1">Welcome to Bloglandia!</h1>
-</header>
-
-<footer th:replace="partials :: footer"></footer>
-
-
+<main class="container">
+	<h1>Welcome to <span class="logo-font">Bloglandia</span></h1>
+	<h2>A land of blogs, dreams, and magic!</h2>
+</main>
+<footer th:replace="~{partials :: footer}"></footer>
+<div th:replace="~{partials :: boot-scripts}"></div>
 </body>
 </html>

@@ -24,6 +24,30 @@ public class User {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     private List<Post> posts;
 
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    private List<Ad> ads;
+
+    public User() {
+    }
+
+    public User(long id, String username, String email, String password, List<Post> posts, List<Ad> ads) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.posts = posts;
+        this.ads = ads;
+    }
+
+    public User(User copy) {
+        id = copy.id;
+        username = copy.username;
+        email = copy.email;
+        password = copy.password;
+        posts = copy.posts;
+        ads = copy.ads;
+    }
+
     public long getId() {
         return id;
     }
@@ -62,9 +86,5 @@ public class User {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
-    }
-
-    public boolean isEmpty() {
-        return false;
     }
 }

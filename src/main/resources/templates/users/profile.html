@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="~{partials :: head ('Edit Post')}">
+<head th:replace="~{partials :: head ('Welcome to Bloglandia, ' + ${#authentication.principal.username} + '!')}">
 </head>
 <body class="main-container main-bg">
 <nav th:replace="~{partials :: navbar}"></nav>
-<header th:replace="~{partials :: header('Edit Post')}"></header>
 <main class="container">
-	<form th:replace="~{partials :: postsForm(@{/posts/{id}/edit(id=${post.id})}, 'Update Post')}"></form>
+	<h1 th:text="|Howdy, ${#authentication.principal.username}!|"></h1>
+	<h2 th:text="|Email: ${#authentication.principal.email}|"></h2>
+	<h2 th:text="|User ID: ${#authentication.principal.id}|"></h2>
 </main>
 <footer th:replace="~{partials :: footer}"></footer>
 <div th:replace="~{partials :: boot-scripts}"></div>

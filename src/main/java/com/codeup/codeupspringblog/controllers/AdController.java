@@ -2,7 +2,7 @@ package com.codeup.codeupspringblog.controllers;
 
 
 import com.codeup.codeupspringblog.models.Ad;
-import com.codeup.codeupspringblog.models.AdUser;
+import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.AdRepository;
 import com.codeup.codeupspringblog.repositories.AdUserRepository;
 import com.codeup.codeupspringblog.services.EmailService;
@@ -46,7 +46,7 @@ public class AdController {
     public String createAdInDB(@ModelAttribute Ad ad){
         System.out.println(ad.toString());
 //        AdUser user = adUserDao.getReferenceById(1L);
-        AdUser user = (AdUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         System.out.println(user);
 
