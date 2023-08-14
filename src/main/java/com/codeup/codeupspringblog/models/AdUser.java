@@ -2,8 +2,6 @@ package com.codeup.codeupspringblog.models;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "ad_users")
 public class AdUser {
@@ -21,8 +19,6 @@ public class AdUser {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "adUser")
-    private List<Ad> ads;
 
 
     public AdUser(AdUser copy) {
@@ -62,14 +58,6 @@ public class AdUser {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<Ad> getAds() {
-        return ads;
-    }
-
-    public void setAds(List<Ad> ads) {
-        this.ads = ads;
     }
 
     public AdUser() {

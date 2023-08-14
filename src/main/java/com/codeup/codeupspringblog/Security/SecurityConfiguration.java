@@ -15,14 +15,13 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration  {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsLoader usersLoader;
 
     public SecurityConfiguration(UserDetailsLoader usersLoader) {
         this.usersLoader = usersLoader;
     }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

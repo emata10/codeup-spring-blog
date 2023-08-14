@@ -24,6 +24,8 @@ public class AdController {
     private final AdRepository adDao;
     private final AdUserRepository adUserDao;
 
+
+
     public AdController(EmailService emailService, AdRepository adDao, AdUserRepository adUserDao) {
         this.emailService = emailService;
         this.adDao = adDao;

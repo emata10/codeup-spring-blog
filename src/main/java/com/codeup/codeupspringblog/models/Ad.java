@@ -19,7 +19,7 @@ public class Ad {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private AdUser adUser;
+    private User user;
 
     public long getId() {
         return id;
@@ -45,12 +45,12 @@ public class Ad {
         this.description = description;
     }
 
-    public AdUser getUser() {
-        return adUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser(AdUser adUser) {
-        this.adUser = adUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Ad() {
@@ -61,10 +61,10 @@ public class Ad {
         this.description = description;
     }
 
-    public Ad(String title, String description, AdUser adUser) {
+    public Ad(String title, String description, User user) {
         this.title = title;
         this.description = description;
-        this.adUser = adUser;
+        this.user = user;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class Ad {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", adUser=" + adUser +
+                ", user=" + user +
                 '}';
     }
 }
